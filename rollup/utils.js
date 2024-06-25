@@ -11,7 +11,8 @@ const banner = `/*!\n * author: ${pkg.author}
  * ${pkg.name} v${pkg.version}
  * build-time: ${year}-${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}
  * LICENSE: ${pkg.license}
- * (c) 2017-${year} ${pkg.homepage}\n */`;
+ * (c) 2017-${year} ${pkg.homepage}
+ * Copyright 2000 - 2024 SuperMap Software Co. Ltd\n */`;
 
 /**
  * handle min file
