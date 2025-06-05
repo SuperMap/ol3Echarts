@@ -1,6 +1,6 @@
 import { Map, Object as obj } from 'ol';
 import { VERSION } from 'ol/util';
-import { ProjectionLike, transform } from 'ol/proj';
+import { ProjectionLike, transform, get } from 'ol/proj';
 import Event from 'ol/events/Event';
 import { Coordinate } from 'ol/coordinate';
 import * as echarts from 'echarts';
@@ -842,7 +842,13 @@ class EChartsLayer extends obj {
 
           const source: ProjectionLike = (options && options.source) || 'EPSG:4326';
           const destination: ProjectionLike = (options && options.destination) || this.projCode;
-          const pixel = this.map.getPixelFromCoordinate(transform(coords, source, destination));
+          let avalibleCoords = coords;
+          const sourceProj = get(source);
+          const destinationProj = get(destination);
+          if (sourceProj && destinationProj && sourceProj.getCode() !== destinationProj.getCode()) {
+            avalibleCoords = transform(coords, source, destination);
+          }
+          const pixel = this.map.getPixelFromCoordinate(avalibleCoords);
           const mapOffset = this._mapOffset;
           return [pixel[0] - mapOffset[0], pixel[1] - mapOffset[1]];
         }
